@@ -1,15 +1,12 @@
 #include "hallencoder.h"
 
-#define TIMEOUT_DEFAULT 1000
-
-#define TOTALTICKS 1000
-
 HallEncoder::HallEncoder(uint8_t pin1, uint8_t pin2, 
 uint16_t steps, unsigned long timeout){
     pin1_ = pin1;
     pin2_ = pin2;
     steps_ = steps;
     timeout_ = timeout;
+    timeout_flag_ = 0;
 
     sens1_ = 0;
     sens2_ = 0;
@@ -41,20 +38,24 @@ void HallEncoder::update(){
     sens2_old_ = sens2_;
 }
 
-int8_t HallEncoder::getDirection(){
+int HallEncoder::getDirection(){
     return direction_;
 }
 
-uint16_t HallEncoder::getRPM(){
+float HallEncoder::getRPM(){
     return rpm_;
 }
 
 uint16_t HallEncoder::getPosition(){
-    return position_;
+    return position_ / 4;
 }
 
 unsigned long HallEncoder::getTime(){
     return timeDiff_;
+}
+
+uint8_t HallEncoder::getTimeout(){
+    return timeout_flag_;
 }
 
 void HallEncoder::parseEncoder_(){
@@ -80,6 +81,12 @@ void HallEncoder::parseEncoder_(){
     
     // RPM is calculated as average of time between steps 
     if(temp){
+        // change direction means stop RPM
+        if(temp != direction_)
+           rpm_ = 0.;
+        
+        direction_ = temp;
+
         // only take time measurement once every 4 states
         if( !(position_ % 4) ){
             timeDiff_ = now - oldTime_;
@@ -88,17 +95,13 @@ void HallEncoder::parseEncoder_(){
         }
     }
 
-    // @note: this may be wrong.
-    //direction change check
-    if (direction_ != temp)
-        rpm_ = 0;
-    direction_ = temp;
-
-    //timeout check
+    // timeout check
     if ((now - oldTime_) > timeout_){
         rpm_ = 0;
-        //direction_ = 0;
+        timeout_flag_ = 1;
     }
+    else
+        timeout_flag_ = 0;
 }
 
 void HallEncoder::calculateRPM_(){
