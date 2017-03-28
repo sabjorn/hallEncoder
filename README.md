@@ -15,7 +15,9 @@ There is example code which showcases most of these values.
 ## Theory
 The `US1881` Hall Latch Sensor can detect magnetic polarity. This is leveraged by placing magnets on a rotating surface and placing the Hall Encoder circuit in a stationary position such that the magnets rotate across the field of the sensor.
 
-[img]
+![Diagram showing the orientation of magnets on rotating surface](https://github.com/sabjorn/hallEncoder/blob/master/fig/encoder_ring.png)
+
+![Positioning of hall sensors in relation to magnets](https://github.com/sabjorn/hallEncoder/blob/master/fig/encoder_position.png)
 
 Originally it was assumed that the magnets would have to be arranged in sequence with opposite polarities (side by side). This is not necessary since the orientation of the sensor board causes two state (HIGH/LOW) as a single magnet passes through the magnetic field. Thus the magnets should be oriented with the polarities in one direction.
 
@@ -27,7 +29,7 @@ By having two sensors on a single board the direction of rotation can be calcula
 
 ## Setup
 There are two ways to use this code:
-1 - Add the `src` directory to Arduino as a library, or;
-2 - Make a symlink of the `.cpp` and `.h` files in the directory with your code. e.g. `ln -s src/* <directory with your .ino>`
+1. Add the `src` directory to Arduino as a library, or;
+2. Make a symlink of the `.cpp` and `.h` files in the directory with your code. e.g. `ln -s src/* <directory with your .ino>`
 
 
