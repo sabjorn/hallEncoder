@@ -17,31 +17,31 @@ void setup(){
 
 void loop(){
     wheel.update();
-
+    unsigned long now = millis();
     // unsigned long now = millis();
-    // if (now - old_time > 100){
-    //     Serial.print("RPM: ");
-    //     Serial.println(wheel.getRPM());
-    //     old_time = now;
-    // }
+    if (now - old_time > 100){
+        Serial.print("RPM: ");
+        Serial.println(wheel.getRPM());
+        old_time = now;
+    }
 
     // print out values if wheel moves or RPM is set to 0 (from timeout)
-    if(temp_position != wheel.getPosition()){
-        Serial.print("Time: ");
-        Serial.print(wheel.getTime());
+    // if(temp_position != wheel.getPosition()){
+    //     Serial.print("Time: ");
+    //     Serial.print(wheel.getTime());
 
-        Serial.print("\tRPM: ");
-        Serial.print(wheel.getRPM());
+    //     Serial.print("\tRPM: ");
+    //     Serial.print(wheel.getRPM());
 
-        Serial.print("\tDirection: ");
-        Serial.print(wheel.getDirection());
+    //     Serial.print("\tDirection: ");
+    //     Serial.print(wheel.getDirection());
 
-        Serial.print("\tPosition: ");
-        Serial.println(wheel.getPosition());
+    //     Serial.print("\tPosition: ");
+    //     Serial.println(wheel.getPosition());
 
-        temp_position = wheel.getPosition();
-    }
-    if(wheel.getTimeout()){
-        Serial.println("TIMEOUT!!!");
-    }
+    //     temp_position = wheel.getPosition();
+    // }
+    // if(wheel.getTimeout()){
+    //     Serial.println("TIMEOUT!!!");
+    // }
 }
