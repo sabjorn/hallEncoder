@@ -1,4 +1,4 @@
-#Hall Encoder
+# Hall Encoder
 
 ## Purpose
 This code is designed to leverage two `US1881` Hall Latch Sensors to act as an [quadrature encoder](https://en.wikipedia.org/wiki/Rotary_encoder) for measuring the rotation of a wheel. Specifically it has been tested on the front sprocket of a bicycle.
