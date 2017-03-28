@@ -54,7 +54,7 @@ unsigned long HallEncoder::getTime(){
     return timeDiff_;
 }
 
-uint8_t HallEncoder::getTimeout(){
+bool HallEncoder::getTimeout(){
     return timeout_flag_;
 }
 
@@ -64,17 +64,17 @@ void HallEncoder::parseEncoder_(){
     // increment position
     int temp = 0;
     if(sens1_old_ && sens2_old_){
-        if(!sens1_ && sens2_) temp = 1;
-        if(sens1_ && !sens2_) temp = -1;
-    }else if(!sens1_old_ && sens2_old_){
-        if(!sens1_ && !sens2_) temp = 1;
-        if(sens1_ && sens2_) temp = -1;
-    }else if(!sens1_old_ && !sens2_old_){
-        if(sens1_ && !sens2_) temp = 1;
         if(!sens1_ && sens2_) temp = -1;
-    }else if(sens1_old_ && !sens2_old_){
-        if(sens1_ && sens2_) temp = 1;
+        if(sens1_ && !sens2_) temp = 1;
+    }else if(!sens1_old_ && sens2_old_){
         if(!sens1_ && !sens2_) temp = -1;
+        if(sens1_ && sens2_) temp = 1;
+    }else if(!sens1_old_ && !sens2_old_){
+        if(sens1_ && !sens2_) temp = -1;
+        if(!sens1_ && sens2_) temp = 1;
+    }else if(sens1_old_ && !sens2_old_){
+        if(sens1_ && sens2_) temp = -1;
+        if(!sens1_ && !sens2_) temp = 1;
     }
     position_ += temp;    
     position_ = position_ % (4 * steps_); //4 states per step

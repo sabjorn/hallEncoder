@@ -19,7 +19,7 @@ class HallEncoder{
         float getRPM();
         uint16_t getPosition();
         unsigned long getTime();
-        uint8_t getTimeout();
+        bool getTimeout();
         
     private:
         void parseEncoder_();
