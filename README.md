@@ -27,6 +27,19 @@ The library is setup to allow the user to use as many magnets in the system as d
 
 By having two sensors on a single board the direction of rotation can be calculated (i.e. quadrature).
 
+## Circuit
+The circuit for this system is very simple with minimal requirements of 2x`10K resistors` and 2x`US1881 Hall Latch Sensors`.
+
+![Encoder schematic](https://github.com/sabjorn/hallEncoder/blob/master/fig/hall_encoder_single.png)
+
+The distance between the two sensors should be roughly equal to the radius of the magnets used (or, if square magnets, the half the width).
+
+The sensors do not require a lot of current so the `+5V` can be powered from the Arduino.
+
+The output of each sensor goes to separate GPIOs on the Arduino. The library allows you to select your desired pins.
+
+**NOTE**: There is a `KICAD` schematic included in this repo. A circuit board could very easily be designed.
+
 ## Setup
 There are two ways to use this code:
 1. Add the `src` directory to Arduino as a library, or;
